@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h2>Login</h2>
+
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+<div class="row">
+    <div class="col-md-4">
+          <form method="post" action="{% url 'landing_page' %}">
+              {% csrf_token %}
+              {{ login_form | crispy }}
+              <button type="submit" class="btn btn-primary button1">Login</button>
+          </form>
+    </div>
+</div>
+{% endblock %}

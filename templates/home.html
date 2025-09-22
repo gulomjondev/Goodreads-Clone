@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block title %}All Reviews{% endblock %}
+{% block content %}
+    <style>
+        body {
+            background: #eee;
+        }
+
+        .posts-content {
+            margin-top: 20px;
+        }
+
+        .ui-w-40 {
+            width: 40px !important;
+            height: auto;
+        }
+
+        .default-style .ui-bordered {
+            border: 1px solid rgba(24, 28, 33, 0.06);
+        }
+
+        .ui-bg-cover {
+            background-color: transparent;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        .ui-rect {
+            padding-top: 50% !important;
+        }
+
+        .ui-rect {
+            position: relative !important;
+            display: block !important;
+            padding-top: 100% !important;
+            width: 100% !important;
+        }
+
+        .media, .media > :not(.media-body), .card {
+            -ms-flex-negative: 1;
+            flex-shrink: 1;
+        }
+
+        .bg-dark {
+            background-color: rgba(24, 28, 33, 0.9) !important;
+        }
+
+        .card-footer, .card hr {
+            border-color: rgba(24, 28, 33, 0.06);
+        }
+
+        .ui-rect-content {
+            position: absolute !important;
+            top: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
+        }
+
+        .default-style .ui-bordered {
+            border: 1px solid rgba(24, 28, 33, 0.06);
+        }
+
+        .book_center {
+            display: block;
+            margin: 0 auto;
+            width: 50%;
+        }
+    </style>
+    <h3>All Reviews</h3>
+    {% for review in page_object %}
+        <div class="container posts-content">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="media mb-3">
+                                <img src="{{ review.user.profile_image.url }}" class="d-block ui-w-40 rounded-circle"
+                                     alt="Image">
+                                <div class="media-body ml-3">
+                                    {{ review.user.username }} rated it {{ review.stars_given }} stars
+                                    <div class="text-muted small">{{ review.created_at }}</div>
+                                </div>
+                            </div>
+
+                            <p>
+                                {{ review.comment| truncatechars:100 }}
+                            </p>
+                            <img src="{{ review.book.cover_picture.url }}" class="card-img-top book_center" alt="...">
+                            {#                        <a href="javascript:void(0)" class="ui-rect ui-bg-cover" style="background-image: url('https://bootdey.com/img/Content/avatar/avatar3.png');"></a>#}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="pagination">
+        {% if page_object.has_previous %}
+            <a href="?page={{ page_object.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span>Page {{ page_object.number }} of {{ page_object.paginator.num_pages }}</span>
+
+        {% if page_object.has_next %}
+            <a href="?page={{ page_object.next_page_number }}">Next</a>
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+
+

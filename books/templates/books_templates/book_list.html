@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{#<style>#}
+{#.book_image img {#}
+{#    height: 200px;#}
+{#    width: 200px;#}
+{#    object-fit: cover; /* rasmni kesib joylashtirish uchun */#}
+
+{#</style>#}
+
+{% block content %}
+    <div class="row mb-3">
+        <div class="col-4">
+            <form method="get" class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" name="q" value="{{ search_query }}">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+{% if page_object %}
+{#    {% for book in page_object.object_list %}#}
+{#       <div class="container">#}
+{#           <div class="row mb-4">#}
+{#                <div class="col-2 book_image">#}
+{#                    <img src="{{ book.cover_picture.url }}" alt="book image">#}
+{#                </div>#}
+{#                <div class="col-6 ms-2">#}
+{#                    <a href="{% url 'books:detail' book.id %}">{{ book.title }}</a>#}
+{#                </div>#}
+{#           </div>#}
+{#       </div>#}
+{#    {% endfor %}#}
+    {% for book in page_object.object_list %}
+   <div class="container">
+       <div class="row mb-4 align-items-center">
+            <!-- Book image -->
+            <div class="col-2 book_image">
+                <img src="{{ book.cover_picture.url }}" alt="book image" class="img-fluid rounded">
+            </div>
+
+            <!-- Book title -->
+            <div class="col-10">
+                <a href="{% url 'books:detail' book.id %}" class="h5 text-decoration-none ms-4">
+                    {{ book.title }}
+                </a>
+                <p>
+                    {{ book.description }}
+                </p>
+            </div>
+       </div>
+   </div>
+{% endfor %}
+
+
+    <div class="pagination">
+        {% if page_object.has_previous %}
+            <a href="?page={{ page_object.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span>Page {{ page_object.number }} of {{ page_object.paginator.num_pages }}</span>
+
+        {% if page_object.has_next %}
+            <a href="?page={{ page_object.next_page_number }}">Next</a>
+        {% endif %}
+
+    </div>
+{% else %}
+    <p>No books found.</p>
+{% endif %}
+
+{% endblock %}

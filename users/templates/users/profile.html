@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+<style>
+    .profile-pic {
+        width: 300px;
+        height: 100px;
+        border-radius: 50%;
+    .profile_username{
+        background-color: rgba(255, 0, 0, 0.5);
+    }
+}
+</style>
+{% block content %}
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+        <div class="card p-4">
+        <div class=" image d-flex flex-column justify-content-center align-items-center">
+            <button class="btn btn-secondary">
+                <img class="profile-pic" src="{{user.profile_image.url}}" alt="Profile Image">
+            </button>
+            <span class="name mt-3 profile_username">{{user.username}}</span>
+            <span class="name mt-3"></span>
+            <span class="idd">@{{user.first_name}}|{{user.last_name}}</span>
+            <div class="d-flex flex-row justify-content-center align-items-center gap-2">
+                <span class="idd1">Oxc4c16a645_b21a</span> <span><i class="fa fa-copy"></i></span>
+            </div>
+        </div>
+        <div class="text mt-3">
+
+        </div>
+            <div class=" px-2 rounded mt-4 date ">
+                <span class="join">Joined May,2021</span>
+            </div>
+        </div>
+    </div>
+
+{#    <div class="profile_photo">#}
+{#        <img src="{{user.profile_image.url}}" alt="Profile Image">#}
+{#    </div>#}
+{##}
+{#    <p>Username: {{user.username}}</p>#}
+{#    <p>First_name: {{user.first_name}}</p>#}
+{#    <p>Last_name: {{user.last_name}}</p>#}
+{#    <p>Email: {{user.email}}</p>#}
+{#    <p>#}
+{#        <a href="{% url 'users:profile-edit' %}">Edit profile</a>#}
+{#    </p>#}
+{% endblock %}
